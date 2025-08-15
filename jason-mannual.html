@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Manual JSON Generator - Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="mannual.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        /* Form hide/show fix */
+        .form-content {
+            display: none;
+        }
+        .form-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="light-mode">
+<header class="topbar small">
+    <div class="brand-left">
+        <div class="logo">AI</div>
+        <div>
+            <div class="title">Voice → JSON Prompts</div>
+            <div class="subtitle small muted">Record • Transcribe • Generate JSON</div>
+        </div>
+    </div>
+    <div class="header-actions">
+        <div id="user-email" class="user-email" hidden></div>
+        <button id="logout" class="btn ghost">Logout</button>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <section class="tool-header">
+            <h1>Advanced Manual JSON Generator</h1>
+            <p>Create structured JSON objects for various purposes using our specialized, easy-to-use forms.</p>
+        </section>
+
+        <div class="converter-wrapper">
+            <div class="panel">
+                <h3>Select a Template</h3>
+                <div class="form-tabs">
+                    <button class="tab-btn active" data-form="website-form"><i class="fas fa-globe"></i> Website</button>
+                    <button class="tab-btn" data-form="video-form"><i class="fas fa-video"></i> Video</button>
+                    <button class="tab-btn" data-form="article-form"><i class="fas fa-newspaper"></i> Article</button>
+                    <button class="tab-btn" data-form="social-form"><i class="fas fa-share-alt"></i> Social Post</button>
+                    <button class="tab-btn" data-form="app-form"><i class="fas fa-mobile-alt"></i> App</button>
+                    <button class="tab-btn" data-form="letter-form"><i class="fas fa-envelope"></i> Official Letter</button>
+                </div>
+
+                <!-- Website Form -->
+                <div id="website-form" class="form-content active">
+                    <div class="form-group"><label for="web-title">Page Title</label><input type="text" id="web-title" placeholder="e.g., My Awesome Homepage"></div>
+                    <div class="form-group"><label>Color Scheme</label>
+                        <div class="color-scheme-group">
+                            <input type="color" id="web-primary-color" value="#667eea" title="Primary Color">
+                            <input type="color" id="web-secondary-color" value="#764ba2" title="Secondary Color">
+                            <input type="color" id="web-text-color" value="#34495e" title="Text Color">
+                        </div>
+                    </div>
+                    <div class="form-group"><label for="web-menubar">Menubar Items (comma-separated)</label><input type="text" id="web-menubar" placeholder="e.g., Home, About, Contact"></div>
+                    <div class="form-group"><label>Pages & Features</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item"><input type="checkbox" id="web-singlepage"> <label for="web-singlepage">Single Page</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="web-loginpage"> <label for="web-loginpage">Login Page</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="web-adminpage"> <label for="web-adminpage">Admin Page</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="web-responsive" checked> <label for="web-responsive">Responsive</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Form -->
+                <div id="video-form" class="form-content">
+                    <h4>Basic Details</h4>
+                    <div class="form-group"><label for="video-title">Video Title</label><input type="text" id="video-title" placeholder="e.g., How to Use Our New Tool"></div>
+                    <div class="form-group"><label for="video-background">Background Description</label><input type="text" id="video-background" placeholder="e.g., Modern office with city view"></div>
+                    <div class="form-group"><label>Shooting Conditions</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item"><input type="checkbox" id="video-day" checked> <label for="video-day">Day Shot</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="video-night"> <label for="video-night">Night Shot</label></div>
+                        </div>
+                    </div>
+                    <hr class="form-section-divider">
+                    <h4>Camera View Details</h4>
+                    <div class="form-group"><label for="video-shot-type">Shot Type</label><select id="video-shot-type"><option>Medium Shot</option><option>Close-Up</option><option>Long Shot</option></select></div>
+                    <div class="form-group"><label for="video-angle">Camera Angle</label><select id="video-angle"><option>Eye-Level</option><option>High Angle</option><option>Low Angle</option></select></div>
+                    <div class="form-group"><label for="video-movement">Camera Movement</label><select id="video-movement"><option>Static</option><option>Pan</option><option>Dolly</option></select></div>
+                </div>
+
+                <!-- Article Form -->
+                <div id="article-form" class="form-content">
+                    <div class="form-group"><label for="article-topic">Article Topic</label><input type="text" id="article-topic" placeholder="e.g., The Future of Artificial Intelligence"></div>
+                    <div class="form-group"><label for="article-keywords">Keywords (comma-separated)</label><input type="text" id="article-keywords" placeholder="e.g., AI, machine learning, technology"></div>
+                    <div class="form-group"><label for="article-tone">Tone of Voice</label><select id="article-tone"><option>Informative</option><option>Formal</option><option>Casual</option><option>Persuasive</option></select></div>
+                    <div class="form-group"><label for="article-audience">Target Audience</label><input type="text" id="article-audience" placeholder="e.g., Tech Enthusiasts"></div>
+                </div>
+
+                <!-- Social Post Form -->
+                <div id="social-form" class="form-content">
+                    <div class="form-group"><label for="social-platform">Platform</label><select id="social-platform"><option>Facebook</option><option>Twitter</option><option>Instagram</option></select></div>
+                    <div class="form-group"><label for="social-content">Post Content</label><textarea id="social-content" placeholder="What's on your mind?"></textarea></div>
+                    <div class="form-group"><label for="social-tags">Hashtags (comma-separated)</label><input type="text" id="social-tags" placeholder="e.g., digital, tech, ai"></div>
+                </div>
+
+                <!-- App Form -->
+                <div id="app-form" class="form-content">
+                    <div class="form-group"><label for="app-name">App Name</label><input type="text" id="app-name" placeholder="e.g., SuperApp"></div>
+                    <div class="form-group"><label for="app-platform">Platform</label><select id="app-platform"><option>iOS</option><option>Android</option><option>Web</option></select></div>
+                    <div class="form-group"><label for="app-features">Features (comma-separated)</label><input type="text" id="app-features" placeholder="e.g., AI Chat, Photo Editing"></div>
+                </div>
+
+                <!-- Official Letter Form -->
+                <div id="letter-form" class="form-content">
+                    <div class="form-group"><label for="letter-recipient">Recipient</label><input type="text" id="letter-recipient" placeholder="e.g., Hiring Manager"></div>
+                    <div class="form-group"><label for="letter-subject">Subject</label><input type="text" id="letter-subject" placeholder="e.g., Job Application for Developer Role"></div>
+                    <div class="form-group"><label for="letter-body">Body</label><textarea id="letter-body" placeholder="Dear Sir/Madam,..."></textarea></div>
+                </div>
+
+                <button id="generate-btn"><i class="fas fa-cogs"></i> Generate JSON</button>
+            </div>
+
+            <div class="panel">
+                <div class="output-header"><h3>JSON Output</h3><button id="copy-btn"><i class="fas fa-copy"></i> Copy</button></div>
+                <pre id="json-output"><code>{ "message": "Select a template, fill the form and click Generate." }</code></pre>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="main-footer">
+    <p>&copy; 2025 Ai-Prompt Tools. All Rights Reserved.</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const generateBtn = document.getElementById('generate-btn');
+    const jsonOutputPre = document.getElementById('json-output');
+    const copyBtn = document.getElementById('copy-btn');
+    const tabs = document.querySelectorAll('.tab-btn');
+    const forms = document.querySelectorAll('.form-content');
+    let activeFormId = 'website-form';
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+
+            tab.classList.add('active');
+            activeFormId = tab.dataset.form;
+            document.getElementById(activeFormId).classList.add('active');
+        });
+    });
+
+    function syntaxHighlight(json) {
+        if (typeof json != 'string') {
+            json = JSON.stringify(json, undefined, 2);
+        }
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+            function (match) {
+                let cls = 'json-number';
+                if (/^"/.test(match)) {
+                    cls = /:$/.test(match) ? 'json-key' : 'json-string';
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+    }
+
+    function getFormValues(formId) {
+        const form = document.getElementById(formId);
+        const inputs = form.querySelectorAll('input, textarea, select');
+        const values = {};
+        inputs.forEach(input => {
+            const key = input.id.split('-').slice(1).join('_');
+            if (input.type === 'checkbox') {
+                values[key] = input.checked;
+            } else {
+                values[key] = input.value;
+            }
+        });
+        return values;
+    }
+
+    function buildJsonObject(formId, values) {
+        let obj = {};
+        const splitAndTrim = (str) => str ? str.split(',').map(item => item.trim()) : [];
+        switch (formId) {
+            case 'website-form':
+                obj = { website_specs: { title: values.title, color_scheme: { primary: values.primary_color, secondary: values.secondary_color, text: values.text_color }, menubar: splitAndTrim(values.menubar), features: { is_single_page: values.singlepage, has_login: values.loginpage, has_admin: values.adminpage, is_responsive: values.responsive } } };
+                break;
+            case 'video-form':
+                obj = { video_production: { basic_details: { title: values.title, background: values.background, conditions: { day_shot: values.day, night_shot: values.night } }, camera_view: { shot_type: values.shot_type, angle: values.angle, movement: values.movement } } };
+                break;
+            case 'article-form':
+                obj = { article_brief: { topic: values.topic, keywords: splitAndTrim(values.keywords), tone_of_voice: values.tone, target_audience: values.audience } };
+                break;
+            case 'social-form':
+                obj = { social_post: { platform: values.platform, content: values.content, hashtags: splitAndTrim(values.tags) } };
+                break;
+            case 'app-form':
+                obj = { app_info: { name: values.name, platform: values.platform, features: splitAndTrim(values.features) } };
+                break;
+            case 'letter-form':
+                obj = { official_letter: { recipient: values.recipient, subject: values.subject, body: values.body, sentAt: new Date().toISOString() } };
+                break;
+        }
+        return obj;
+    }
+
+    generateBtn.addEventListener('click', () => {
+        const values = getFormValues(activeFormId);
+        const jsonObject = buildJsonObject(activeFormId, values);
+        const formattedJson = JSON.stringify(jsonObject, null, 2);
+        jsonOutputPre.innerHTML = syntaxHighlight(formattedJson);
+    });
+
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(jsonOutputPre.innerText)
+            .then(() => {
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => { copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy'; }, 2000);
+            });
+    });
+
+    jsonOutputPre.innerHTML = syntaxHighlight(jsonOutputPre.innerText);
+});
+</script>
+<script src="ads-config.js"></script>
+<script src="ads.js"></script>
+</body>
+</html>

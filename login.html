@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — Voice → JSON Prompts</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Firebase compat SDK (used for simplicity) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <main class="center-panel">
+    <div class="auth-card">
+      <h1>Voice → JSON Prompts</h1>
+
+      <div class="tabs">
+        <button id="tab-login" class="tab active">Login</button>
+        <button id="tab-register" class="tab">Register</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" class="auth-form">
+        <input id="login-email" type="email" placeholder="Email" required />
+        <input id="login-pass" type="password" placeholder="Password" required />
+        <button id="login-btn" class="btn primary" type="submit">Login</button>
+        <div class="or">or</div>
+        <button id="google-login" type="button" class="btn google"><i class="fa-brands fa-google"></i> Sign in with Google</button>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="register-form" class="auth-form" style="display:none;">
+        <input id="reg-name" type="text" placeholder="Full name" required />
+        <input id="reg-email" type="email" placeholder="Email" required />
+        <input id="reg-pass" type="password" placeholder="Password (6+ chars)" required />
+        <button id="register-btn" class="btn primary" type="submit">Create Account</button>
+      </form>
+
+      <div id="auth-msg" class="muted small"></div>
+      <div class="hint small">After login you'll be redirected to the main app.</div>
+    </div>
+
+    <div class="footer-note">
+      <small>Make sure Email/Password and Google sign-in are enabled in Firebase console and your domain is authorized.</small>
+    </div>
+  </main>
+
+  <!-- Font Awesome for Google icon -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+  <!-- auth.js does Firebase init and handlers -->
+  <script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Voice → JSON Prompts</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+</head>
+<body>
+  <header class="topbar small">
+    <div class="brand-left">
+      <div class="logo">AI</div>
+      <div>
+        <div class="title">Voice → JSON Prompts</div>
+        <div class="subtitle small muted">Record • Transcribe • Generate JSON</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div id="user-email" class="user-email" hidden></div>
+      <button id="logout" class="btn ghost">Logout</button>
+    </div>
+
+
+  </header>
+
+
+
+  <main class="container">
+    <section class="left card">
+      <div class="recorder">
+        <button id="record" class="mic-btn"><i id="micicon" class="fa fa-microphone"></i></button>
+        <div class="recorder-info">
+          <div id="rec-hint">Click mic to record (browser Speech API, works best in Chrome)</div>
+          <div class="small muted">Or upload an audio file or paste text below</div>
+        </div>
+        <label class="upload-label">
+          <input id="file" type="file" accept="audio/*" />
+          <i class="fa fa-upload"></i> Upload audio
+        </label>
+      </div>
+
+      <audio id="preview" controls style="display:none; margin-top:12px; width:100%"></audio>
+
+      <label class="field-label">Transcript (editable)</label>
+      <textarea id="text" placeholder="Transcribed text or paste here..."></textarea>
+
+      <div class="controls">
+        <button id="generate" class="btn primary">Generate JSON Prompt (Gemini)</button>
+        <button id="clear" class="btn ghost">Clear Text</button>
+      </div>
+
+      <div id="status" class="status muted" hidden></div>
+    </section>
+
+    <aside class="right card">
+      <h3>Pricing (demo)</h3>
+      <p class="muted">First <strong>3</strong> prompts free for registered users.</p>
+
+      <div class="packs">
+        <div class="pack">
+          <div class="pack-title">10 Prompts</div>
+          <div class="pack-price">$5</div>
+          <button class="btn pack-buy" data-pack="10">Buy</button>
+        </div>
+        <div class="pack popular">
+          <div class="pack-title">15 Prompts</div>
+          <div class="pack-price">$7</div>
+          <div class="badge">Popular</div>
+          <button class="btn primary pack-buy" data-pack="15">Buy</button>
+        </div>
+        <div class="pack">
+          <div class="pack-title">30 Prompts</div>
+          <div class="pack-price">$12</div>
+          <button class="btn pack-buy" data-pack="30">Buy</button>
+        </div>
+      </div>
+
+      <hr/>
+
+      <label class="field-label">Generated JSON Prompt</label>
+      <pre id="json" class="json-box"></pre>
+
+      <div class="json-actions">
+        <button id="copy" class="btn">Copy</button>
+        <button id="download" class="btn ghost">Download</button>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <small class="muted">© 2025 Ai → JSON Prompts</small>
+  </footer>
+<script src="ads.js"></script>
+<script src="ads-config.js"></script>
+  <script src="ai.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+:root{
+  --bg:#f5f7fb;
+  --card:#fff;
+  --accent:#059669;
+  --accent2:#0ea5e9;
+  --muted:#6b7280;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:var(--bg);color:#0f172a}
+.center-panel{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.auth-card{width:360px;background:var(--card);padding:20px;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.08);text-align:center}
+.tabs{display:flex;gap:8px;margin-bottom:12px}
+.tab{flex:1;padding:8px;border-radius:8px;border:1px solid #eef2f6;background:#fafafa;cursor:pointer}
+.tab.active{background:linear-gradient(90deg,var(--accent2),var(--accent));color:white}
+.auth-form{display:flex;flex-direction:column;gap:8px}
+.auth-form input{padding:10px;border-radius:8px;border:1px solid #eef2f6}
+.btn{padding:10px 12px;border-radius:8px;border:none;cursor:pointer;background:#0f172a;color:white}
+.btn.ghost{background:white;color:#0f172a;border:1px solid rgba(0,0,0,0.06)}
+.btn.primary{background:var(--accent);color:white}
+.btn.google{background:white;color:#111;border:1px solid #e6e6e6}
+.muted{color:var(--muted);font-size:13px}
+.small{font-size:13px}
+.footer-note{margin-top:10px;color:var(--muted);font-size:13px}
+
+/* APP layout */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:linear-gradient(90deg,var(--accent2),var(--accent));color:white}
+.brand-left{display:flex;gap:12px;align-items:center}
+.logo{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center}
+.title{font-weight:700}
+.subtitle{font-size:12px;opacity:0.9}
+.header-actions{display:flex;gap:8px;align-items:center}
+.user-email{background:rgba(255,255,255,0.12);padding:6px 10px;border-radius:8px}
+.container{max-width:1100px;margin:20px auto;padding:0 16px;display:grid;grid-template-columns:2fr 1fr;gap:20px}
+@media(max-width:900px){.container{grid-template-columns:1fr}}
+.card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 28px rgba(2,6,23,0.06)}
+.recorder{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.mic-btn{width:84px;height:84px;border-radius:18px;border:none;background:linear-gradient(180deg,#10b981,#059669);color:white;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.mic-btn.recording{transform:scale(1.03);box-shadow:0 18px 42px rgba(5,150,105,0.22)}
+.recorder-info{flex:1;text-align:left}
+.upload-label{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:#f3f9f6;border:1px solid #e7f6ef;cursor:pointer}
+.field-label{display:block;margin-top:14px;font-weight:600}
+#text{width:100%;min-height:140px;padding:12px;border-radius:10px;border:1px solid #eef2f6;margin-top:8px;font-size:15px}
+.controls{display:flex;gap:10px;margin-top:12px}
+.status{margin-top:12px;padding:10px;border-radius:8px;background:rgba(5,150,105,0.06);color:var(--accent)}
+.packs{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.pack{flex:1;min-width:120px;padding:12px;border-radius:10px;background:#fbfffb;border:1px solid #eef6ef;text-align:center;position:relative}
+.pack .pack-title{font-weight:700}
+.pack-price{color:var(--accent);font-size:20px;margin-top:6px}
+.pack.popular{border:2px solid rgba(6,182,212,0.08);box-shadow:0 10px 30px rgba(6,182,212,0.05)}
+.badge{position:absolute;right:10px;top:10px;background:var(--accent);color:white;padding:6px 8px;border-radius:8px;font-size:12px}
+.json-box{background:#0b1220;color:#dbeafe;padding:12px;border-radius:8px;min-height:140px;overflow:auto;margin-top:10px;font-family:monospace}
+.json-actions{display:flex;gap:8px;margin-top:8px;justify-content:flex-end}
+.footer{text-align:center;padding:16px;color:var(--muted)}
+
+.form-content {
+    display: none;
+}
+.form-content.active {
+    display: block;
+}
+
+
+.adsense-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.adsense-container ins {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px;
+}
